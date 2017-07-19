@@ -127,12 +127,16 @@ tb_event :: struct #ordered {
 }
 
 foreign_system_library (
-	termboxlib "termbox";
+	termboxlib "termbox" when ODIN_OS == "linux";
 )
+
+tb_init_file :: proc(name: string) -> int {
+	return _tb_init_file(&name[0]);
+}
 
 foreign termboxlib {
 	tb_init :: proc() -> int ---;
-	tb_init_file :: proc(name: ^u8) -> int ---;
+	_tb_init_file :: proc(name: ^u8) -> int #link_name "tb_init_file" ---;
 	tb_init_fd :: proc(inout: int) -> int ---;
 	tb_shutdown :: proc() ---;
 
