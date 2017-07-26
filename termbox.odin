@@ -113,51 +113,50 @@ TB_OUTPUT_216 ::       3;
 TB_OUTPUT_GRAYSCALE :: 4;
 
 tb_cell :: struct #ordered {
-	ch: u32;
-	fg, bg: u16;
+    ch: u32;
+    fg, bg: u16;
 }
 
 tb_event :: struct #ordered {
-	kind: u8;
-	mod: u8;
-	key: u16;
-	ch: u32;
-	w, h: i32;
-	x, y: i32;
+    kind: u8;
+    mod: u8;
+    key: u16;
+    ch: u32;
+    w, h: i32;
+    x, y: i32;
 }
 
 foreign_system_library (
-	termboxlib "termbox" when ODIN_OS == "linux";
+termboxlib "termbox";
 )
 
-tb_init_file :: proc(name: string) -> int {
-	return _tb_init_file(&name[0]);
-}
-
 foreign termboxlib {
-	tb_init :: proc() -> int ---;
-	_tb_init_file :: proc(name: ^u8) -> int #link_name "tb_init_file" ---;
-	tb_init_fd :: proc(inout: int) -> int ---;
-	tb_shutdown :: proc() ---;
-
-	tb_width :: proc() -> int ---;
-	tb_height :: proc() -> int ---;
-
-	tb_present :: proc() ---;
-
-	tb_set_cursor :: proc(x, y: int) ---;
-
-	tb_put_cell :: proc(x, y: int, cell: ^tb_cell) ---;
-	tb_change_cell :: proc(x, y: int, ch: u32, fg, bg: u16) ---;
-
-	tb_blit :: proc(x, y: int, w, h: int, cells: ^tb_cell) ---;
-
-	tb_cell_buffer :: proc() -> ^tb_cell ---;
-
-	tb_select_input_method :: proc(mode: int) -> int ---;
-
-	tb_select_output_mode :: proc(mode: int) -> int ---;
-
-	tb_peek_event :: proc(event: ^tb_event, timeout: int) ---;
-	tb_poll_event :: proc(event: ^tb_event) ---;
+    tb_init :: proc() -> i32 #cc_c ---;
+    tb_init_file :: proc(name: ^u8) -> i32 #cc_c ---;
+    tb_init_fd :: proc(inout: i32) -> i32 #cc_c ---;
+    tb_shutdown :: proc() #cc_c ---;
+    
+    tb_width :: proc() -> i32 #cc_c ---;
+    tb_height :: proc() -> i32 #cc_c ---;
+    
+    tb_clear :: proc() #cc_c ---;
+    tb_set_clear_attributes :: proc(fg, bg: u16) #cc_c ---;
+    
+    tb_present :: proc() #cc_c ---;
+    
+    tb_set_cursor :: proc(x, y: i32) #cc_c ---;
+    
+    tb_put_cell :: proc(x, y: i32, cell: ^tb_cell) #cc_c ---;
+    tb_change_cell :: proc(x, y: i32, ch: u32, fg, bg: u16) #cc_c ---;
+    
+    tb_blit :: proc(x, y: i32, w, h: i32, cells: ^tb_cell) #cc_c ---;
+    
+    tb_cell_buffer :: proc() -> ^tb_cell #cc_c ---;
+    
+    tb_select_input_method :: proc(mode: i32) -> i32 #cc_c ---;
+    
+    tb_select_output_mode :: proc(mode: i32) -> i32 #cc_c ---;
+    
+    tb_peek_event :: proc(event: ^tb_event, timeout: i32) #cc_c ---;
+    tb_poll_event :: proc(event: ^tb_event) #cc_c ---;
 }
