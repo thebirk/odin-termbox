@@ -157,14 +157,14 @@ foreign termboxlib {
 	height :: proc() -> i32 ---;
 
 	clear :: proc() ---;
-	set_clear_attributes :: proc(fg, bg: u16) ---;
+	set_clear_attributes :: proc(fg, bg: Color) ---;
 
 	present :: proc() ---;
 	
 	set_cursor :: proc(x, y: i32) ---;
 
 	put_cell :: proc(x, y: i32, cell: ^Cell) ---;
-	change_cell :: proc(x, y: i32, ch: u32, fg, bg: u16) ---;
+	change_cell :: proc(x, y: i32, ch: u32, fg, bg: Color) ---;
 
 	blit :: proc(x, y: i32, w, h: i32, cells: ^Cell) ---;
 
