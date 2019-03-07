@@ -125,7 +125,7 @@ Output_Mode :: enum i32 {
 }
 
 Cell :: struct {
-	ch: u32,
+	ch: rune,
 	fg, bg: Color,
 }
 
@@ -133,7 +133,7 @@ Event :: struct {
 	kind: EventKind,
 	mod: Mod,
 	key: Key,
-	ch: u32,
+	ch: rune,
 	w, h: i32,
 	x, y: i32,
 }
@@ -164,7 +164,7 @@ foreign termboxlib {
 	set_cursor :: proc(x, y: i32) ---;
 
 	put_cell :: proc(x, y: i32, cell: ^Cell) ---;
-	change_cell :: proc(x, y: i32, ch: u32, fg, bg: Color) ---;
+	change_cell :: proc(x, y: i32, ch: rune, fg, bg: Color) ---;
 
 	blit :: proc(x, y: i32, w, h: i32, cells: ^Cell) ---;
 
