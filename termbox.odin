@@ -170,7 +170,7 @@ foreign termboxlib {
 
 	cell_buffer :: proc() -> ^Cell ---;
 
-	select_input_method :: proc(mode: Input_Mode) -> Input_Mode ---;
+	select_input_mode :: proc(mode: Input_Mode) -> Input_Mode ---;
 	select_output_mode :: proc(mode: Output_Mode) -> Output_Mode ---;
 
 	peek_event :: proc(event: ^Event, timeout: i32) ---;
